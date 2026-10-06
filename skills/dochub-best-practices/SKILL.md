@@ -17,9 +17,10 @@ If they want to act in a **connected DocHub account** (list documents, fill fiel
 Do not invent paths, params, or auth details. Read:
 
 1. Domain skills when the task is specific: `dochub-auth`, `dochub-documents`, `dochub-sign-requests`, `dochub-webhooks`, or `dochub-docs`
-2. Portal documentation (`.md` URLs in those skills)
-3. Catalog: https://dev.dochub.com/llms.txt — then the matching tag YAML
-4. Complete spec only if the work spans many tags: https://dev.dochub.com/api-reference/openapi.yaml
+2. Guides for whole workflows: https://dev.dochub.com/docs/guides.md (create a document, send a sign request)
+3. Portal documentation (`.md` URLs in those skills)
+4. Catalog: https://dev.dochub.com/llms.txt — then the matching tag YAML
+5. Complete spec only if the work spans many tags: https://dev.dochub.com/api-reference/openapi.yaml
 
 Do not fetch Scalar HTML for operation detail — every endpoint URL returns the same prerendered snapshot.
 
@@ -28,8 +29,10 @@ Do not fetch Scalar HTML for operation detail — every endpoint URL returns the
 | Building… | Open first |
 |-----------|------------|
 | Auth choice / tokens / scopes | `dochub-auth` → portal auth docs |
+| Create, upload, import or copy a document | `dochub-documents` → https://dev.dochub.com/docs/guides/create-a-document.md |
 | List/manage files, roles, PDF URL | `dochub-documents` → Documents / Document Roles YAML |
-| Send / resend / void sign requests | `dochub-sign-requests` → Sign Requests YAML |
+| Send a document or template for signature | `dochub-sign-requests` → https://dev.dochub.com/docs/guides/send-sign-request.md |
+| Resend / void sign requests | `dochub-sign-requests` → Sign Requests YAML |
 | Status-driven automation | `dochub-webhooks` → webhook docs + Webhooks YAML |
 | Unsure where something lives | `dochub-docs` → `llms.txt` |
 

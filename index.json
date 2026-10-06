@@ -17,7 +17,7 @@
     },
     {
       "name": "dochub-documents",
-      "description": "Use when listing or managing documents and document roles, or fetching PDF URLs. Read the portal OpenAPI and API reference.",
+      "description": "Use when creating, uploading, importing or copying documents, listing or managing documents and document roles, or fetching PDF URLs. Read the portal guides and OpenAPI.",
       "files": ["SKILL.md"]
     },
     {

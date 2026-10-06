@@ -16,6 +16,8 @@ https://dev.dochub.com/llms.txt
 
 That index lists every docs page and every API tag. Fetch the files that match the task.
 
+For a whole workflow (creating a document, sending a sign request), read the matching page in the **Guides** section first: https://dev.dochub.com/docs/guides.md. Then use the tag YAML for exact parameters.
+
 ## URL convention
 
 Append `.md` to any docs page URL, and `.yaml` to any API reference URL:
