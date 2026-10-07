@@ -1,8 +1,9 @@
 ---
 name: dochub-sign-requests
 description: >-
-  Use when building or debugging sign-request flows. Read the portal OpenAPI and
-  API reference; do not restate request parameters from memory.
+  Use when building or debugging sign-request flows. Read the portal Send Sign
+  Request guide first, then the OpenAPI; do not restate request parameters from
+  memory.
 ---
 
 # Sign requests
@@ -16,18 +17,21 @@ Build create / list / bulk / resend / void flows from the **published OpenAPI** 
 
 ## OpenAPI
 
-- https://dev.dochub.com/api-reference/tag/sign-requests.yaml
+Fetch the tag YAML for the step you are implementing:
+
+- https://dev.dochub.com/api-reference/tag/sign-requests.yaml — send, status, resend, void, bulk
+- https://dev.dochub.com/api-reference/tag/document-roles.yaml — list and create roles
+- https://dev.dochub.com/api-reference/tag/formfields.yaml — list fields, assign them to roles, fill sender fields
+- https://dev.dochub.com/api-reference/tag/documents.yaml — find the document, download the signed PDF
 - Catalog of every tag: https://dev.dochub.com/llms.txt
 
-## Auth docs (sign-request calls need the right scheme)
+## Auth
 
-- https://dev.dochub.com/docs/authentication.md
-- https://dev.dochub.com/docs/authentication/api-key.md
-- https://dev.dochub.com/docs/authentication/oauth.md
+Sign-request calls need the right scheme: see `dochub-auth` (overview: https://dev.dochub.com/docs/authentication.md).
 
 ## Agent behavior
 
-1. Read the Send Sign Request guide, then fetch the Sign Requests tag YAML for exact parameters before writing client code.
+1. Read the Send Sign Request guide, then fetch the tag YAML for each step above for exact parameters before writing client code.
 2. Prefer current operations described there; treat any marked deprecated as fallback only.
 3. Recommend webhooks for reliable status: see `dochub-webhooks`.
 4. Before you finish, run the flow once end to end and confirm the sign request status. Send it to a signer email the user controls, such as one they configured or gave you, not to a real customer.

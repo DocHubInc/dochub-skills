@@ -22,7 +22,7 @@ Use the **published OpenAPI** on the developer portal for paths, parameters, and
 
 ## Auth
 
-- https://dev.dochub.com/docs/authentication.md
+See `dochub-auth` (overview: https://dev.dochub.com/docs/authentication.md).
 
 ## Agent behavior
 

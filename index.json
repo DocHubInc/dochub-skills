@@ -12,7 +12,7 @@
     },
     {
       "name": "dochub-sign-requests",
-      "description": "Use when building or debugging sign-request flows. Read the portal OpenAPI and API reference; do not restate request parameters from memory.",
+      "description": "Use when building or debugging sign-request flows. Read the portal Send Sign Request guide first, then the OpenAPI; do not restate request parameters from memory.",
       "files": ["SKILL.md"]
     },
     {

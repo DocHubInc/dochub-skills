@@ -17,7 +17,7 @@ If they want to act in a **connected DocHub account** (list documents, fill fiel
 Do not invent paths, params, or auth details. Read:
 
 1. Domain skills when the task is specific: `dochub-auth`, `dochub-documents`, `dochub-sign-requests`, `dochub-webhooks`, or `dochub-docs`
-2. Guides for whole workflows: https://dev.dochub.com/docs/guides.md (create a document, send a sign request)
+2. Guides for whole workflows: https://dev.dochub.com/docs/guides/create-a-document.md and https://dev.dochub.com/docs/guides/send-sign-request.md
 3. Portal documentation (`.md` URLs in those skills)
 4. Catalog: https://dev.dochub.com/llms.txt — then the matching tag YAML
 5. Complete spec only if the work spans many tags: https://dev.dochub.com/api-reference/openapi.yaml
