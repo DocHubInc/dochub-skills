@@ -38,6 +38,7 @@ Do not fetch Scalar HTML for operation detail — every endpoint URL returns the
 
 ## Agent rules
 
+- Send `Content-Type: application/json` and exactly `Accept: application/json`. A `*/*` anywhere in `Accept`, which fetch, axios, curl and Python `requests` send by default, returns JSON:API instead of flat JSON. See https://dev.dochub.com/docs/basics/request-formats.md.
 - Prefer the user’s language and their existing env/config patterns (do not invent product-specific env var names).
 - Redact secrets in replies. Do not commit credentials.
 - After scaffolding, point them at the portal docs/OpenAPI URLs you used.

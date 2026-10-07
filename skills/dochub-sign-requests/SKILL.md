@@ -34,4 +34,8 @@ Sign-request calls need the right scheme: see `dochub-auth` (overview: https://d
 1. Read the Send Sign Request guide, then fetch the tag YAML for each step above for exact parameters before writing client code.
 2. Prefer current operations described there; treat any marked deprecated as fallback only.
 3. Recommend webhooks for reliable status: see `dochub-webhooks`.
-4. Before you finish, run the flow once end to end and confirm the sign request status. Send it to a signer email the user controls, such as one they configured or gave you, not to a real customer.
+4. Before you finish, offer to test the flow with one real send, and send only if the user agrees: DocHub has no test mode, so a send emails real people from their account. If they agree:
+   - Send a template, or a copy of the document (`POST /api/v2/documents/{id}/copy`), never their real regular document: a regular document can be sent only once, so a test send would make the real send fail with `403`.
+   - Send only to an email address the user gives you for testing, not to a real customer.
+   - The test passes when the sign request is `IN_PROGRESS` right after the send; signers may show `WAITING` for a few seconds. Do not wait for `FINALIZED`: that needs a person to sign.
+   - Then void it with `POST /api/v2/sign-requests/{id}/void`, unless the user wants to finish signing.
