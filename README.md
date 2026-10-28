@@ -21,7 +21,7 @@ Any agent (Cursor, Claude Code, Codex, and others):
 npx skills add DocHubInc/dochub-skills
 ```
 
-Use Node.js 20+. Integrator docs: https://dev.dochub.com/docs/ai-agents
+Use Node.js 20+. Integrator docs: https://dev.dochub.com/docs/build-with-ai
 
 ## Skills
 

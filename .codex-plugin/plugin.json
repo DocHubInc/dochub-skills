@@ -7,7 +7,7 @@
     "email": "support@dochub.com",
     "url": "https://www.dochub.com"
   },
-  "homepage": "https://dev.dochub.com/docs/ai-agents",
+  "homepage": "https://dev.dochub.com/docs/build-with-ai",
   "repository": "https://github.com/DocHubInc/dochub-skills",
   "license": "MIT",
   "keywords": ["dochub", "e-signature", "documents", "webhooks", "oauth"],
