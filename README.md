@@ -29,8 +29,8 @@ Use Node.js 20+. Integrator docs: https://dev.dochub.com/docs/ai-agents
 |-------|----------|
 | `dochub-best-practices` | Choosing which docs/OpenAPI to open for an integration |
 | `dochub-auth` | API key or OAuth setup |
-| `dochub-documents` | Documents and document roles |
-| `dochub-sign-requests` | Create / list / bulk / resend / void |
+| `dochub-documents` | Create, upload, import or copy documents; documents, roles and PDF URLs |
+| `dochub-sign-requests` | Send for signature, track status, download the signed PDF; list / bulk / resend / void |
 | `dochub-webhooks` | Webhook receivers and endpoint management |
 | `dochub-docs` | Looking up docs and OpenAPI via `llms.txt` |
 
