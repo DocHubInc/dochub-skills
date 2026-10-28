@@ -2,7 +2,7 @@
   "name": "dochub",
   "displayName": "DocHub",
   "description": "Agent skills for DocHub Public API integrations, plus the official remote MCP for documents and e-sign.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "DocHub",
     "email": "support@dochub.com",
