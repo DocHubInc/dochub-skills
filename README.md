@@ -169,9 +169,18 @@ Keep credentials in your app's own environment variables or secret manager. Neve
 
 **Claude Code plugin**
 
-```text
-/plugin marketplace update dochub-skills
+Refresh the marketplace listing, then update the installed plugin:
+
+```bash
+claude plugin marketplace update dochub-skills
 ```
+
+```bash
+claude plugin update dochub@dochub-skills
+```
+
+Or, inside Claude Code, open `/plugin`, go to the **Installed** tab, select `dochub` and choose
+**Update now**. Restart Claude Code to apply the update.
 
 Use the `/plugin` menu to disable or uninstall `dochub`.
 
@@ -183,6 +192,12 @@ npx skills update
 
 ```bash
 npx skills remove dochub-auth dochub-best-practices dochub-docs dochub-documents dochub-sign-requests dochub-webhooks
+```
+
+If you installed with `-g`, remove them globally:
+
+```bash
+npx skills remove -g dochub-auth dochub-best-practices dochub-docs dochub-documents dochub-sign-requests dochub-webhooks
 ```
 
 Use `npx skills list` to see what's installed (add `-g` for global installs).
