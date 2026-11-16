@@ -1,18 +1,17 @@
 # DocHub skills
 
-Agent skills and the official DocHub MCP for building **DocHub Public API integrations** with
-Claude Code, Cursor, Codex, and other coding agents.
+Agent skills for building **DocHub Public API integrations** with Claude Code, Cursor, Codex, and
+other coding agents. The Claude Code, Cursor and Codex plugins in this repo also ship the official
+remote DocHub MCP at `https://dochub.com/mcp`.
 
 This repository is the **source of truth** for DocHub's public agent skills.
 
 ## What's in here
 
-There are two separate pieces. You can use either one or both.
-
 | Piece | What it does | Use it when |
 |-------|--------------|-------------|
 | **Skills** (`skills/`) | Short instructions that tell your agent which DocHub docs and OpenAPI files to read before writing code | You are **writing an integration**: your own app calls the DocHub Public API |
-| **MCP** (`https://dochub.com/mcp`) | A remote MCP server that lets the agent act in **your** DocHub account (list documents, fill fields, prepare and send sign requests) | You want the agent to **do something in DocHub now**, not write code |
+| **Plugins** (Claude Code, Cursor, Codex) | Bundle the same skills with the `dochub` MCP server. The MCP lets the agent act in **your** DocHub account (list documents, fill fields, prepare and send sign requests) | You also want the agent to **do something in DocHub now**, not only write code |
 
 The skills don't copy auth flows or endpoint parameters into the repo. They send the agent to
 the live developer portal, so generated code follows the current API:
@@ -26,47 +25,15 @@ The MCP uses OAuth. This repo contains no API keys, and you never paste one into
 ## Requirements
 
 - A DocHub account
-- Node.js 20+ (only for the `npx skills` install)
+- Node.js 22.20+ (only for the `npx skills` install)
 - For your integration: a DocHub API key or OAuth app. See
   [Authentication](https://dev.dochub.com/docs/authentication) to choose one.
 
-## Install
-
-Choose the section for your agent. **Plugin installs are recommended** for Claude Code, Cursor and
-Codex because they add the skills and the MCP in one step.
-
-### Claude Code (plugin, recommended)
-
-Run inside Claude Code:
-
-```text
-/plugin marketplace add DocHubInc/dochub-skills
-/plugin install dochub@dochub-skills
-```
-
-This installs all six skills and the `dochub` MCP server. Restart Claude Code (or start a new
-session) so it picks them up.
-
-### Cursor (plugin)
-
-```text
-/add-plugin DocHubInc/dochub-skills
-```
-
-### Codex (plugin)
-
-```bash
-codex plugin marketplace add DocHubInc/dochub-skills
-```
-
-```bash
-codex plugin add dochub@dochub-skills
-```
-
-### Any agent: skills only, with `npx skills`
+## Install the skills (any agent)
 
 This uses the open-source [`skills`](https://www.npmjs.com/package/skills) installer. It installs
-the **skills only**, not the MCP.
+the **skills only**, not the MCP. For the MCP too, use a [plugin](#install-the-plugin-skills--mcp)
+instead.
 
 Run it from the root of the project where you'll build the integration:
 
@@ -102,17 +69,41 @@ Where the skills end up for Claude Code:
 | Project | `.claude/skills/dochub-*` (a symlink into `.agents/skills/`, or a copy) |
 | Global (`-g`) | `~/.claude/skills/dochub-*` |
 
-## Check that it worked
+## Install the plugin (skills + MCP)
 
-1. Start a **new** agent session. Most agents load skills only at startup.
-2. Ask: *"Which DocHub skills do you have?"* The agent should list the `dochub-*` skills.
-3. In Claude Code you can also type `/` and look for `dochub-*` entries.
+A plugin installs all six skills and registers the `dochub` MCP server in one step. Plugins are
+available for Claude Code, Cursor and Codex.
 
-If nothing shows up, see [Troubleshooting](#troubleshooting).
+### Claude Code
 
-## Connect the MCP (plugin installs)
+Run inside Claude Code:
 
-The plugins register a remote MCP server named `dochub` at `https://dochub.com/mcp`.
+```text
+/plugin marketplace add DocHubInc/dochub-skills
+/plugin install dochub@dochub-skills
+```
+
+Restart Claude Code (or start a new session) so it picks them up.
+
+### Cursor
+
+```text
+/add-plugin DocHubInc/dochub-skills
+```
+
+### Codex
+
+```bash
+codex plugin marketplace add DocHubInc/dochub-skills
+```
+
+```bash
+codex plugin add dochub@dochub-skills
+```
+
+### Connect the MCP
+
+The plugin registers a remote MCP server named `dochub` at `https://dochub.com/mcp`.
 
 1. Open your agent's MCP panel. In Claude Code, run `/mcp`.
 2. Select `dochub` and sign in to DocHub in the browser window that opens.
@@ -132,6 +123,14 @@ your agent's MCP config. For Claude Code, that is `.mcp.json` in the project roo
   }
 }
 ```
+
+## Check that it worked
+
+1. Start a **new** agent session. Most agents load skills only at startup.
+2. Ask: *"Which DocHub skills do you have?"* The agent should list the `dochub-*` skills.
+3. In Claude Code you can also type `/` and look for `dochub-*` entries.
+
+If nothing shows up, see [Troubleshooting](#troubleshooting).
 
 ## Skills
 
@@ -167,23 +166,6 @@ Keep credentials in your app's own environment variables or secret manager. Neve
 
 ## Updating and removing
 
-**Claude Code plugin**
-
-Refresh the marketplace listing, then update the installed plugin:
-
-```bash
-claude plugin marketplace update dochub-skills
-```
-
-```bash
-claude plugin update dochub@dochub-skills
-```
-
-Or, inside Claude Code, open `/plugin`, go to the **Installed** tab, select `dochub` and choose
-**Update now**. Restart Claude Code to apply the update.
-
-Use the `/plugin` menu to disable or uninstall `dochub`.
-
 **`npx skills`**
 
 ```bash
@@ -201,6 +183,23 @@ npx skills remove -g dochub-auth dochub-best-practices dochub-docs dochub-docume
 ```
 
 Use `npx skills list` to see what's installed (add `-g` for global installs).
+
+**Claude Code plugin**
+
+Refresh the marketplace listing, then update the installed plugin:
+
+```bash
+claude plugin marketplace update dochub-skills
+```
+
+```bash
+claude plugin update dochub@dochub-skills
+```
+
+Or, inside Claude Code, open `/plugin`, go to the **Installed** tab, select `dochub` and choose
+**Update now**. Restart Claude Code to apply the update.
+
+Use the `/plugin` menu to disable or uninstall `dochub`.
 
 ## Troubleshooting
 
@@ -226,7 +225,7 @@ skills into the folders of the agents you selected, and Claude Code wasn't selec
   mkdir -p .claude/skills && for s in .agents/skills/dochub-*; do ln -s "../../$s" ".claude/skills/$(basename "$s")"; done
   ```
 
-- Or use the Claude Code plugin instead (see [Install](#claude-code-plugin-recommended)).
+- Or use the Claude Code plugin instead (see [Install the plugin](#claude-code)).
 
 Then start a new Claude Code session.
 
