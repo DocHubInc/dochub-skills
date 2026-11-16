@@ -201,6 +201,29 @@ Or, inside Claude Code, open `/plugin`, go to the **Installed** tab, select `doc
 
 Use the `/plugin` menu to disable or uninstall `dochub`.
 
+**Codex plugin**
+
+Refresh the marketplace to pick up the latest version:
+
+```bash
+codex plugin marketplace upgrade dochub-skills
+```
+
+To remove the plugin:
+
+```bash
+codex plugin remove dochub@dochub-skills
+```
+
+To turn it off without removing it, type `/plugins` in a Codex session, select `dochub` and press
+Space. See the [Codex CLI reference](https://learn.chatgpt.com/docs/developer-commands?surface=cli)
+for all plugin commands.
+
+**Cursor plugin**
+
+Open **Customize** in the Cursor sidebar to see and manage installed plugins, including `dochub`.
+See [Cursor plugins](https://cursor.com/docs/plugins).
+
 ## Troubleshooting
 
 ### Skills installed with `npx skills` don't appear in Claude Code
