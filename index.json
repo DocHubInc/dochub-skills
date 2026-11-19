@@ -2,33 +2,45 @@
   "skills": [
     {
       "name": "dochub-best-practices",
-      "description": "Guides DocHub Public API integration decisions: which portal docs and OpenAPI to read, when to use API key vs OAuth, sign requests, documents, and webhooks. Use when building or reviewing any DocHub Public API integration.",
-      "files": ["SKILL.md"]
+      "description": "Use whenever the user mentions DocHub or wants to build with the DocHub API: e-signature or e-sign flows, sending documents or contracts for signature, onboarding or HR paperwork, uploading documents or templates, webhooks, API keys or OAuth. Routes to the right DocHub guides, docs and OpenAPI, and sets the rules for every DocHub API call.",
+      "files": [
+        "SKILL.md"
+      ]
     },
     {
       "name": "dochub-auth",
-      "description": "Use when implementing DocHub Public API authentication (API keys or OAuth 2.0). Points to portal auth docs and OpenAPI — do not invent flows from memory.",
-      "files": ["SKILL.md"]
+      "description": "Use when connecting an app to DocHub: API keys, OAuth 2.0 apps, access tokens, scopes, \"sign in with DocHub\", or any DocHub auth error. Links where to create API keys and OAuth apps, plus the portal auth docs and OpenAPI — do not invent flows from memory.",
+      "files": [
+        "SKILL.md"
+      ]
     },
     {
       "name": "dochub-sign-requests",
-      "description": "Use when building or debugging sign-request flows. Read the portal Send Sign Request guide first, then the OpenAPI; do not restate request parameters from memory.",
-      "files": ["SKILL.md"]
+      "description": "Use when sending a DocHub document or template for signature (e-sign, e-signature, signing flows, contracts, offer letters, HR onboarding), checking signing status, resending, voiding or bulk sending, or downloading the signed PDF. Read the portal Send Sign Request guide first, then the OpenAPI; do not restate request parameters from memory.",
+      "files": [
+        "SKILL.md"
+      ]
     },
     {
       "name": "dochub-documents",
-      "description": "Use when creating, uploading, importing or copying documents, listing or managing documents and document roles, or fetching PDF URLs. Read the portal guides and OpenAPI.",
-      "files": ["SKILL.md"]
+      "description": "Use when working with DocHub documents or templates in code: uploading a file, importing one from a URL, copying a document or template, listing documents, managing document roles, or downloading a PDF, including the signed PDF. Read the portal guides and OpenAPI.",
+      "files": [
+        "SKILL.md"
+      ]
     },
     {
       "name": "dochub-webhooks",
-      "description": "Use when adding webhook receivers or managing webhook endpoints. Read portal webhook docs and OpenAPI.",
-      "files": ["SKILL.md"]
+      "description": "Use when reacting to DocHub events in code: webhook receivers, automation that runs when a document is signed or a sign request is completed, voided or expired, verifying webhook deliveries, or managing webhook endpoints. Read portal webhook docs and OpenAPI.",
+      "files": [
+        "SKILL.md"
+      ]
     },
     {
       "name": "dochub-docs",
-      "description": "Use when looking up DocHub Public API documentation or OpenAPI. Fetch llms.txt, then the linked markdown docs and per-tag OpenAPI YAML — do not invent paths or fetch Scalar HTML for operation detail.",
-      "files": ["SKILL.md"]
+      "description": "Use when you need any DocHub API doc page, endpoint, parameter or response format, or are unsure which DocHub doc applies. Fetch llms.txt, then the linked markdown docs and per-tag OpenAPI YAML — do not invent paths or fetch Scalar HTML for operation detail.",
+      "files": [
+        "SKILL.md"
+      ]
     }
   ]
 }

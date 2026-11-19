@@ -1,9 +1,10 @@
 ---
 name: dochub-documents
 description: >-
-  Use when creating, uploading, importing or copying documents, listing or
-  managing documents and document roles, or fetching PDF URLs. Read the portal
-  guides and OpenAPI.
+  Use when working with DocHub documents or templates in code: uploading a
+  file, importing one from a URL, copying a document or template, listing
+  documents, managing document roles, or downloading a PDF, including the
+  signed PDF. Read the portal guides and OpenAPI.
 ---
 
 # Documents
@@ -22,9 +23,18 @@ Use the **published OpenAPI** on the developer portal for paths, parameters, and
 
 ## Auth
 
-See `dochub-auth` (overview: https://dev.dochub.com/docs/authentication.md).
+- https://dev.dochub.com/docs/authentication.md — API key vs OAuth
+- Create API keys at https://dev.dochub.com/settings/api-keys and OAuth apps at https://dev.dochub.com/settings/oauth-applications
 
 ## Agent behavior
 
 1. To create a document, follow the Create a document guide. Fetch the tag YAML above before implementing list/get/roles/PDF helpers.
-2. For sending documents for signature, continue with `dochub-sign-requests`.
+2. To send a document for signature, read https://dev.dochub.com/docs/guides/send-sign-request.md and https://dev.dochub.com/api-reference/tag/sign-requests.yaml.
+3. To download a signed PDF, follow Step 6 of https://dev.dochub.com/docs/guides/send-sign-request.md and take the response format from `documents.yaml`.
+
+## Rules for every DocHub API call
+
+- Send `Content-Type: application/json` and exactly `Accept: application/json`. A `*/*` anywhere in `Accept`, which fetch, axios, curl and Python `requests` send by default, returns JSON:API instead of flat JSON. See https://dev.dochub.com/docs/basics/request-formats.md.
+- Use only the public DocHub API documented at https://dev.dochub.com. Take paths, parameters and response shapes from the linked docs and tag YAML; never guess them.
+- Keep credentials in the user’s env or secret manager. Redact them in replies and never commit them.
+- DocHub has no test mode: sending a sign request emails real people. Send one only after the user agrees, and for a test send use a template or a copy of the document (`POST /api/v2/documents/{id}/copy`), send only to an email address the user gives you for testing, then void it (`POST /api/v2/sign-requests/{id}/void`).

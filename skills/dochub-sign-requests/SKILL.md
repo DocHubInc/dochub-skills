@@ -1,9 +1,11 @@
 ---
 name: dochub-sign-requests
 description: >-
-  Use when building or debugging sign-request flows. Read the portal Send Sign
-  Request guide first, then the OpenAPI; do not restate request parameters from
-  memory.
+  Use when sending a DocHub document or template for signature (e-sign,
+  e-signature, signing flows, contracts, offer letters, HR onboarding), checking
+  signing status, resending, voiding or bulk sending, or downloading the signed
+  PDF. Read the portal Send Sign Request guide first, then the OpenAPI; do not
+  restate request parameters from memory.
 ---
 
 # Sign requests
@@ -27,15 +29,29 @@ Fetch the tag YAML for the step you are implementing:
 
 ## Auth
 
-Sign-request calls need the right scheme: see `dochub-auth` (overview: https://dev.dochub.com/docs/authentication.md).
+Sign-request calls need the right scheme and scopes:
+
+- https://dev.dochub.com/docs/authentication.md — API key vs OAuth
+- https://dev.dochub.com/docs/authentication/oauth.md — scopes table
+- Create API keys at https://dev.dochub.com/settings/api-keys and OAuth apps at https://dev.dochub.com/settings/oauth-applications
+
+## Webhooks
+
+For reliable status, recommend webhooks over polling. Read https://dev.dochub.com/docs/webhooks/receiving.md and https://dev.dochub.com/docs/webhooks/events.md before writing a receiver, and https://dev.dochub.com/api-reference/tag/webhooks.yaml to register the endpoint.
 
 ## Agent behavior
 
 1. Read the Send Sign Request guide, then fetch the tag YAML for each step above for exact parameters before writing client code.
 2. Prefer current operations described there; treat any marked deprecated as fallback only.
-3. Recommend webhooks for reliable status: see `dochub-webhooks`.
-4. Before you finish, offer to test the flow with one real send, and send only if the user agrees: DocHub has no test mode, so a send emails real people from their account. If they agree:
+3. Before you finish, offer to test the flow with one real send, and send only if the user agrees: DocHub has no test mode, so a send emails real people from their account. If they agree:
    - Send a template, or a copy of the document (`POST /api/v2/documents/{id}/copy`), never their real regular document: a regular document can be sent only once, so a test send would make the real send fail with `403`.
    - Send only to an email address the user gives you for testing, not to a real customer.
    - The test passes when the sign request is `IN_PROGRESS` right after the send; signers may show `WAITING` for a few seconds. Do not wait for `FINALIZED`: that needs a person to sign.
    - Then void it with `POST /api/v2/sign-requests/{id}/void`, unless the user wants to finish signing.
+
+## Rules for every DocHub API call
+
+- Send `Content-Type: application/json` and exactly `Accept: application/json`. A `*/*` anywhere in `Accept`, which fetch, axios, curl and Python `requests` send by default, returns JSON:API instead of flat JSON. See https://dev.dochub.com/docs/basics/request-formats.md.
+- Use only the public DocHub API documented at https://dev.dochub.com. Take paths, parameters and response shapes from the linked docs and tag YAML; never guess them.
+- Keep credentials in the user’s env or secret manager. Redact them in replies and never commit them.
+- DocHub has no test mode: sending a sign request emails real people. Send one only after the user agrees, and for a test send use a template or a copy of the document (`POST /api/v2/documents/{id}/copy`), send only to an email address the user gives you for testing, then void it (`POST /api/v2/sign-requests/{id}/void`).

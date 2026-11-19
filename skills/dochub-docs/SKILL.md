@@ -1,9 +1,10 @@
 ---
 name: dochub-docs
 description: >-
-  Use when looking up DocHub Public API documentation or OpenAPI. Fetch llms.txt, then
-  the linked markdown docs and per-tag OpenAPI YAML — do not invent paths or
-  fetch Scalar HTML for operation detail.
+  Use when you need any DocHub API doc page, endpoint, parameter or response
+  format, or are unsure which DocHub doc applies. Fetch llms.txt, then the
+  linked markdown docs and per-tag OpenAPI YAML — do not invent paths or fetch
+  Scalar HTML for operation detail.
 ---
 
 # Docs lookup
@@ -34,4 +35,10 @@ Each tag YAML is a standalone OpenAPI document (that tag’s paths plus the sche
 
 - Fetch Scalar HTML for operation detail — every endpoint URL returns the same prerendered snapshot
 - Invent endpoints or parameters when a slice is available
-- Use internal API schemas unless the user explicitly asks
+
+## Rules for every DocHub API call
+
+- Send `Content-Type: application/json` and exactly `Accept: application/json`. A `*/*` anywhere in `Accept`, which fetch, axios, curl and Python `requests` send by default, returns JSON:API instead of flat JSON. See https://dev.dochub.com/docs/basics/request-formats.md.
+- Use only the public DocHub API documented at https://dev.dochub.com. Take paths, parameters and response shapes from the linked docs and tag YAML; never guess them.
+- Keep credentials in the user’s env or secret manager. Redact them in replies and never commit them.
+- DocHub has no test mode: sending a sign request emails real people. Send one only after the user agrees, and for a test send use a template or a copy of the document (`POST /api/v2/documents/{id}/copy`), send only to an email address the user gives you for testing, then void it (`POST /api/v2/sign-requests/{id}/void`).
