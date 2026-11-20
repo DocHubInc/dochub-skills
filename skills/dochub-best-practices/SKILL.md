@@ -1,9 +1,11 @@
 ---
 name: dochub-best-practices
 description: >-
-  Guides DocHub Public API integration decisions: which portal docs and OpenAPI
-  to read, when to use API key vs OAuth, sign requests, documents, and webhooks.
-  Use when building or reviewing any DocHub Public API integration.
+  Use whenever the user mentions DocHub or wants to build with the DocHub API:
+  e-signature or e-sign flows, sending documents or contracts for signature,
+  onboarding or HR paperwork, uploading documents or templates, webhooks, API
+  keys or OAuth. Routes to the right DocHub guides, docs and OpenAPI, and sets
+  the rules for every DocHub API call.
 ---
 
 # DocHub Public API best practices
@@ -16,29 +18,38 @@ If they want to act in a **connected DocHub account** (list documents, fill fiel
 
 Do not invent paths, params, or auth details. Read:
 
-1. Domain skills when the task is specific: `dochub-auth`, `dochub-documents`, `dochub-sign-requests`, `dochub-webhooks`, or `dochub-docs`
-2. Guides for whole workflows: https://dev.dochub.com/docs/guides/create-a-document.md and https://dev.dochub.com/docs/guides/send-sign-request.md
-3. Portal documentation (`.md` URLs in those skills)
-4. Catalog: https://dev.dochub.com/llms.txt — then the matching tag YAML
-5. Complete spec only if the work spans many tags: https://dev.dochub.com/api-reference/openapi.yaml
+1. Guides for whole workflows: https://dev.dochub.com/docs/guides/create-a-document.md and https://dev.dochub.com/docs/guides/send-sign-request.md
+2. The docs and tag YAML in the routing table below
+3. Catalog: https://dev.dochub.com/llms.txt — then the matching tag YAML
+4. Complete spec only if the work spans many tags: https://dev.dochub.com/api-reference/openapi.yaml
 
 Do not fetch Scalar HTML for operation detail — every endpoint URL returns the same prerendered snapshot.
 
 ## Routing (what to open next)
 
-| Building… | Open first |
-|-----------|------------|
-| Auth choice / tokens / scopes | `dochub-auth` → portal auth docs |
-| Create, upload, import or copy a document | `dochub-documents` → https://dev.dochub.com/docs/guides/create-a-document.md |
-| List/manage files, roles, PDF URL | `dochub-documents` → Documents / Document Roles YAML |
-| Send a document or template for signature | `dochub-sign-requests` → https://dev.dochub.com/docs/guides/send-sign-request.md |
-| Resend / void sign requests | `dochub-sign-requests` → Sign Requests YAML |
-| Status-driven automation | `dochub-webhooks` → webhook docs + Webhooks YAML |
-| Unsure where something lives | `dochub-docs` → `llms.txt` |
+Open the links in the right column directly. The matching skill, if it is loaded, adds more detail.
 
-## Agent rules
+| Building… | Open first | Skill |
+|-----------|------------|-------|
+| Auth choice / tokens / scopes | https://dev.dochub.com/docs/authentication.md | `dochub-auth` |
+| Create, upload, import or copy a document | https://dev.dochub.com/docs/guides/create-a-document.md | `dochub-documents` |
+| List/manage files, PDF URL | https://dev.dochub.com/api-reference/tag/documents.yaml | `dochub-documents` |
+| List/manage document roles | https://dev.dochub.com/api-reference/tag/document-roles.yaml | `dochub-documents` |
+| Send a document or template for signature | https://dev.dochub.com/docs/guides/send-sign-request.md | `dochub-sign-requests` |
+| Resend / void sign requests | https://dev.dochub.com/api-reference/tag/sign-requests.yaml | `dochub-sign-requests` |
+| Download the signed PDF | Step 6 of https://dev.dochub.com/docs/guides/send-sign-request.md | `dochub-sign-requests` |
+| Status-driven automation | https://dev.dochub.com/docs/webhooks/receiving.md and https://dev.dochub.com/docs/webhooks/events.md | `dochub-webhooks` |
+| Unsure where something lives | https://dev.dochub.com/llms.txt | `dochub-docs` |
 
-- Send `Content-Type: application/json` and exactly `Accept: application/json`. A `*/*` anywhere in `Accept`, which fetch, axios, curl and Python `requests` send by default, returns JSON:API instead of flat JSON. See https://dev.dochub.com/docs/basics/request-formats.md.
+## Rules for every DocHub API call
+
+- Prefer flat JSON: send `Content-Type: application/json` and exactly `Accept: application/json` wherever the operation accepts it. A `*/*` anywhere in `Accept`, which fetch, axios, curl and Python `requests` send by default, returns JSON:API instead of flat JSON. Some endpoints are exceptions (bulk endpoints, legacy sign-request endpoints, endpoints that accept only one format): check the request content types the operation lists in its tag YAML and https://dev.dochub.com/docs/basics/request-formats.md#exceptions.
+- OAuth endpoints follow the OAuth 2.0 standard instead: token requests (`POST /api/v2/oauth/token`) use `Content-Type: application/x-www-form-urlencoded`. See https://dev.dochub.com/docs/authentication/oauth.md.
+- Use only the public DocHub API documented at https://dev.dochub.com. Take paths, parameters and response shapes from the linked docs and tag YAML; never guess them.
+- Keep credentials in the user’s env or secret manager. Redact them in replies and never commit them.
+- DocHub has no test mode: sending a sign request emails real people. Send one only after the user agrees, and for a test send use a template or a copy of the document (`POST /api/v2/documents/{id}/copy`), send only to an email address the user gives you for testing, then void it (`POST /api/v2/sign-requests/{id}/void`).
+
+## Also
+
 - Prefer the user’s language and their existing env/config patterns (do not invent product-specific env var names).
-- Redact secrets in replies. Do not commit credentials.
 - After scaffolding, point them at the portal docs/OpenAPI URLs you used.

@@ -2,7 +2,7 @@
 
 Agent skills for building **DocHub Public API integrations** with Claude Code, Cursor, Codex, and
 other coding agents. The Claude Code, Cursor and Codex plugins in this repo also ship the official
-remote DocHub MCP at `https://dochub.com/mcp`.
+remote DocHub MCP at `https://dochub.com/mcp` ([DocHubInc/dochub-mcp-server](https://github.com/DocHubInc/dochub-mcp-server)).
 
 This repository is the **source of truth** for DocHub's public agent skills.
 
@@ -16,7 +16,7 @@ This repository is the **source of truth** for DocHub's public agent skills.
 The skills don't copy auth flows or endpoint parameters into the repo. They send the agent to
 the live developer portal, so generated code follows the current API:
 
-- Docs: https://dev.dochub.com/docs/
+- Docs: https://dev.dochub.com/docs
 - Catalog of every docs page and API tag: https://dev.dochub.com/llms.txt
 - Full OpenAPI spec: https://dev.dochub.com/api-reference/openapi.yaml
 
@@ -103,7 +103,9 @@ codex plugin add dochub@dochub-skills
 
 ### Connect the MCP
 
-The plugin registers a remote MCP server named `dochub` at `https://dochub.com/mcp`.
+The plugin registers a remote MCP server named `dochub` at `https://dochub.com/mcp`. For what
+the MCP can do and how it works, see
+[DocHubInc/dochub-mcp-server](https://github.com/DocHubInc/dochub-mcp-server).
 
 1. Open your agent's MCP panel. In Claude Code, run `/mcp`.
 2. Select `dochub` and sign in to DocHub in the browser window that opens.
