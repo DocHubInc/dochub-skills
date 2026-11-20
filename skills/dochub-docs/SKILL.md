@@ -38,7 +38,8 @@ Each tag YAML is a standalone OpenAPI document (that tag’s paths plus the sche
 
 ## Rules for every DocHub API call
 
-- Send `Content-Type: application/json` and exactly `Accept: application/json`. A `*/*` anywhere in `Accept`, which fetch, axios, curl and Python `requests` send by default, returns JSON:API instead of flat JSON. See https://dev.dochub.com/docs/basics/request-formats.md.
+- Prefer flat JSON: send `Content-Type: application/json` and exactly `Accept: application/json` wherever the operation accepts it. A `*/*` anywhere in `Accept`, which fetch, axios, curl and Python `requests` send by default, returns JSON:API instead of flat JSON. Some endpoints are exceptions (bulk endpoints, legacy sign-request endpoints, endpoints that accept only one format): check the request content types the operation lists in its tag YAML and https://dev.dochub.com/docs/basics/request-formats.md#exceptions.
+- OAuth endpoints follow the OAuth 2.0 standard instead: token requests (`POST /api/v2/oauth/token`) use `Content-Type: application/x-www-form-urlencoded`. See https://dev.dochub.com/docs/authentication/oauth.md.
 - Use only the public DocHub API documented at https://dev.dochub.com. Take paths, parameters and response shapes from the linked docs and tag YAML; never guess them.
 - Keep credentials in the user’s env or secret manager. Redact them in replies and never commit them.
 - DocHub has no test mode: sending a sign request emails real people. Send one only after the user agrees, and for a test send use a template or a copy of the document (`POST /api/v2/documents/{id}/copy`), send only to an email address the user gives you for testing, then void it (`POST /api/v2/sign-requests/{id}/void`).
